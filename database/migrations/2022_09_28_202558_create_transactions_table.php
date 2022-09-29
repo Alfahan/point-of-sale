@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreign('cashier_id')->references('id')->on('users');
 
             // relationship customers
-            $table->foreign('customer_id')->references('id')->on('customer');
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 

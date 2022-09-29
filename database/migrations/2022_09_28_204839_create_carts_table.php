@@ -21,8 +21,8 @@ return new class extends Migration
             $table->bigInteger('price');
             $table->timestamps();
 
-            // relationship transactions
-            $table->foreign('transaction_id')->references('id')->on('transactions');
+            //relationship users
+            $table->foreign('cashier_id')->references('id')->on('users');
 
             // relationship products
             $table->foreign('product_id')->references('id')->on('products');
