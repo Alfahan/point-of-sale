@@ -18,4 +18,14 @@ class Profit extends Model
         'transaction_id',
         'total'
     ];
+
+    /**
+     * transaction
+     *
+     * @return void
+     */
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }

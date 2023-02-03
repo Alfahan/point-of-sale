@@ -23,5 +23,15 @@ class Product extends Model
         'sell_price',
         'category_id',
         'stock'
-     ];
+    ];
+
+    /**
+     * category
+     *
+     * @return void
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
