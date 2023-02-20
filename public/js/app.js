@@ -20008,16 +20008,15 @@ __webpack_require__.r(__webpack_exports__);
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.h)(App, props);
       }
     })
-    // Set Mixins
-    .mixins({
+    //set mixins
+    .mixin({
       methods: {
-        // method "hasAnyPermission"
-
-        hasAnyPermission: function hasAnyPermission(permission) {
-          // get permissions from props
-          var allPermissions = this.$page.props.auth.permission;
+        //method "hasAnyPermission"
+        hasAnyPermission: function hasAnyPermission(permissions) {
+          //get permissions from props
+          var allPermissions = this.$page.props.auth.permissions;
           var hasPermission = false;
-          permission.forEach(function (item) {
+          permissions.forEach(function (item) {
             if (allPermissions[item]) hasPermission = true;
           });
           return hasPermission;

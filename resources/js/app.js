@@ -1,32 +1,35 @@
 import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
-import { InertiaProgress } from '@inertiajs/progress';
+
+import { InertiaProgress } from '@inertiajs/progress'
 
 createInertiaApp({
-    resolve: name => require(`./Pages/${name}`),
-    setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
-            // Set Mixins
-            .mixins({
-                methods: {
-                    // method "hasAnyPermission"
+  resolve: name => require(`./Pages/${name}`),
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      //set mixins
+      .mixin({
+        methods: {
 
-                    hasAnyPermission: function (permission) {
-                        // get permissions from props
-                        let allPermissions = this.$page.props.auth.permission;
+          //method "hasAnyPermission"
+          hasAnyPermission: function (permissions) {
 
-                        let hasPermission = false;
-                        permission.forEach(function(item){
-                            if(allPermissions[item]) hasPermission = true ;
-                        });
+            //get permissions from props
+            let allPermissions = this.$page.props.auth.permissions;
 
-                        return hasPermission;
-                    }
-                },
-            })
-            .use(plugin)
-            .mount(el)
-    },
+            let hasPermission = false;
+            permissions.forEach(function(item){
+              if(allPermissions[item]) hasPermission = true;
+            });
+
+            return hasPermission;
+          }
+
+        },
+      })
+      .use(plugin)
+      .mount(el)
+  },
 });
 
 InertiaProgress.init()
