@@ -39,7 +39,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <Link :href="`/apps/roles/${role.id}/edit`" v-if="hasAnyPermission(['roles.edit'])" class="btn btn-success btn-sm me-2"><i class="fa fa-pencil-alt me-1"></i> EDIT</Link>
-                                                <button v-if="hasAnyPermission(['roles.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
+                                                <button @click.prevent="destroy(role.id)" v-if="hasAnyPermission(['roles.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -70,6 +70,9 @@
     //import inertia adapter
     import { Inertia } from '@inertiajs/inertia';
 
+    // import sweet alert2
+    import Swal from 'sweetalert2';
+
     export default {
         //layout
         layout: LayoutApp,
@@ -85,6 +88,7 @@
             roles: Object,
         },
 
+
         setup() {
             //define state search
             const search = ref('' || (new URL(document.location)).searchParams.get('q'));
@@ -98,10 +102,39 @@
                 });
             }
 
+
+            // define method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.delete(`/apps/roles/${id}`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Role deleted successfully.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
             //return
             return {
                 search,
                 handleSearch,
+                destroy
             }
         }
     }
