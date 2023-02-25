@@ -23421,7 +23421,8 @@ __webpack_require__.r(__webpack_exports__);
     auth: Object,
     customers: Array,
     carts_total: Number,
-    session: Object
+    session: Object,
+    carts: Array
   },
   //composition API
   setup: function setup(props) {
@@ -26685,7 +26686,52 @@ var _hoisted_34 = {
 var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "fw-bold"
 }, "Customer", -1 /* HOISTED */);
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><table class=\"table table-bordered\"><thead><tr style=\"background-color:#e6e6e7;\"><th scope=\"col\">#</th><th scope=\"col\">Product Name</th><th scope=\"col\">Price</th><th scope=\"col\">Qty</th><th scope=\"col\">Sub Total</th></tr></thead><tbody></tbody></table><hr><div class=\"d-flex align-items-end flex-column bd-highlight mb-3\"><div class=\"mt-auto bd-highlight\"><label>Discount (Rp.)</label><input type=\"number\" class=\"form-control\" placeholder=\"Discount (Rp.)\"></div><div class=\"bd-highlight mt-4\"><label>Pay (Rp.)</label><input type=\"number\" class=\"form-control\" placeholder=\"Pay (Rp.)\"></div></div><div class=\"text-end mt-4\"><button class=\"btn btn-warning btn-md border-0 shadow text-uppercase me-2\">Cancel</button><button class=\"btn btn-purple btn-md border-0 shadow text-uppercase\">Pay Order &amp; Print</button></div>", 5);
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1 /* HOISTED */);
+var _hoisted_37 = {
+  "class": "table table-bordered"
+};
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", {
+  style: {
+    "background-color": "#e6e6e7"
+  }
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  scope: "col"
+}, "#"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  scope: "col"
+}, "Product Name"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  scope: "col"
+}, "Price"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  scope: "col"
+}, "Qty"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  scope: "col"
+}, "Sub Total")])], -1 /* HOISTED */);
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+  "class": "text-center"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "btn btn-danger btn-sm rounded-pill"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa fa-trash"
+})])], -1 /* HOISTED */);
+var _hoisted_40 = {
+  "class": "text-center"
+};
+var _hoisted_41 = {
+  "class": "text-end"
+};
+var _hoisted_42 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
+  colspan: "4",
+  "class": "text-end fw-bold",
+  style: {
+    "background-color": "#e6e6e7"
+  }
+}, "TOTAL", -1 /* HOISTED */);
+var _hoisted_43 = {
+  "class": "text-end fw-bold",
+  style: {
+    "background-color": "#e6e6e7"
+  }
+};
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<hr><div class=\"d-flex align-items-end flex-column bd-highlight mb-3\"><div class=\"mt-auto bd-highlight\"><label>Discount (Rp.)</label><input type=\"number\" class=\"form-control\" placeholder=\"Discount (Rp.)\"></div><div class=\"bd-highlight mt-4\"><label>Pay (Rp.)</label><input type=\"number\" class=\"form-control\" placeholder=\"Pay (Rp.)\"></div></div><div class=\"text-end mt-4\"><button class=\"btn btn-warning btn-md border-0 shadow text-uppercase me-2\">Cancel</button><button class=\"btn btn-purple btn-md border-0 shadow text-uppercase\">Pay Order &amp; Print</button></div>", 3);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Head = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Head");
   var _component_VueMultiselect = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("VueMultiselect");
@@ -26743,7 +26789,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     label: "name",
     "track-by": "name",
     options: $props.customers
-  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), _hoisted_36])])])])])])])], 64 /* STABLE_FRAGMENT */);
+  }, null, 8 /* PROPS */, ["modelValue", "options"])])]), _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.carts, function (cart) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
+      key: cart.id
+    }, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(cart.product.title), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Rp. " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatPrice(cart.product.sell_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(cart.qty), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_41, "Rp. " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatPrice(cart.price)), 1 /* TEXT */)]);
+  }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_43, "Rp. " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formatPrice($props.carts_total)), 1 /* TEXT */)])])]), _hoisted_44])])])])])])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
