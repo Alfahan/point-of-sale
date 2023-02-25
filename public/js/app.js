@@ -23390,6 +23390,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
 //import layout
 
 
@@ -23407,6 +23409,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //import inerita adapter
+
+
+//import sweet alert2
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   //layout
@@ -23522,6 +23527,55 @@ __webpack_require__.r(__webpack_exports__);
       //set change
       change.value = cash.value - grandTotal.value;
     };
+
+    // define state "customer_id"
+    var customer_id = (0,vue__WEBPACK_IMPORTED_MODULE_4__.ref)('');
+    var storeTransaction = function storeTransaction() {
+      // HTTP request
+      axios__WEBPACK_IMPORTED_MODULE_5___default().post('/apps/transactions/store', {
+        //send data to server
+        customer_id: customer_id.value ? customer_id.value.id : '',
+        discount: discount.value,
+        grand_total: grandTotal.value,
+        cash: cash.value,
+        change: change.value
+      }).then(function (response) {
+        //call method "clearSaerch"
+        clearSearch();
+
+        //set qty to "1"
+        qty.value = 1;
+
+        //set grandTotal
+        grandTotal.value = props.carts_total;
+
+        //set cash to "0"
+        cash.value = 0;
+
+        //set change to "0"
+        change.value = 0;
+
+        //set customer_id to ""
+        customer_id.value = '';
+
+        //show success alert
+        sweetalert2__WEBPACK_IMPORTED_MODULE_7___default().fire({
+          title: 'Success!',
+          text: 'Transaction Successfully.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000
+        }).then(function () {
+          setTimeout(function () {
+            //print
+            window.open("/apps/transactions/print?invoice=".concat(response.data.data.invoice), '_blank');
+
+            //reload page
+            location.reload();
+          }, 50);
+        });
+      });
+    };
     return {
       barcode: barcode,
       product: product,
@@ -23535,7 +23589,9 @@ __webpack_require__.r(__webpack_exports__);
       change: change,
       discount: discount,
       setDiscount: setDiscount,
-      setChange: setChange
+      setChange: setChange,
+      customer_id: customer_id,
+      storeTransaction: storeTransaction
     };
   }
 });
@@ -26855,9 +26911,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     value: $props.auth.user.name,
     readonly: ""
   }, null, 8 /* PROPS */, _hoisted_36)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [_hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_VueMultiselect, {
-    modelValue: _ctx.customer_id,
+    modelValue: $setup.customer_id,
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-      return _ctx.customer_id = $event;
+      return $setup.customer_id = $event;
     }),
     label: "name",
     "track-by": "name",
@@ -26892,6 +26948,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control",
     placeholder: "Pay (Rp.)"
   }, null, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.cash]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_56, [_hoisted_57, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $setup.storeTransaction && $setup.storeTransaction.apply($setup, arguments);
+    }, ["prevent"])),
     "class": "btn btn-purple btn-md border-0 shadow text-uppercase",
     disabled: $setup.cash < $setup.grandTotal || $setup.grandTotal <= 0
   }, "Pay Order & Print", 8 /* PROPS */, _hoisted_58)])])])])])])])])], 64 /* STABLE_FRAGMENT */);
