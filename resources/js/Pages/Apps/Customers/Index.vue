@@ -37,7 +37,7 @@
                                             <td>{{ customer.address }}</td>
                                             <td class="text-center">
                                                 <Link :href="`/apps/customers/${customer.id}/edit`" v-if="hasAnyPermission(['customers.edit'])" class="btn btn-success btn-sm me-2"><i class="fa fa-pencil-alt me-1"></i> EDIT</Link>
-                                                <button v-if="hasAnyPermission(['customers.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
+                                                <button @click.prevent="destroy(customer.id)" v-if="hasAnyPermission(['customers.delete'])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -65,6 +65,13 @@
 
     //import ref from vue
     import { ref } from 'vue';
+
+
+    //import inertia adapter
+    import { Inertia } from '@inertiajs/inertia';
+
+    //import sweet alert2
+    import Swal from 'sweetalert2';
 
     export default {
         //layout
@@ -97,9 +104,37 @@
                 });
             }
 
+            //method destroy
+            const destroy = (id) => {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+
+                        Inertia.delete(`/apps/customers/${id}`);
+
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'Customer deleted successfully.',
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    }
+                })
+            }
+
             return {
                 search,
-                handleSearch
+                handleSearch,
+                destroy
             }
         }
     }
