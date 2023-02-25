@@ -39,7 +39,7 @@
                                         <h4 class="fw-bold">GRAND TOTAL</h4>
                                     </div>
                                     <div class="col-md-8 col-8 text-end">
-                                        <h4 class="fw-bold">Rp. 0</h4>
+                                        <h4 class="fw-bold">Rp. {{ formatPrice(grandTotal) }}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +128,8 @@
         //props
         props: {
             auth: Object,
-            customers: Array
+            customers: Array,
+            carts_total: Number
         },
 
         //composition API
@@ -171,12 +172,16 @@
                 barcode.value = '';
             }
 
+            // define state grandTotal
+            const grandTotal = ref(props.carts_total);
+
             return {
                 barcode,
                 product,
                 searchProduct,
                 clearSearch,
-                qty
+                qty,
+                grandTotal
             }
 
         }
