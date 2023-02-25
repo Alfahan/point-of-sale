@@ -22662,14 +22662,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //import Heade and useForm from Inertia
 
 
-// import ref from vue
+//import ref from vue
 
 
-//  chart
+//chart
 
 
 
-// register chart
+//register chart
 chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register.apply(chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart, _toConsumableArray(chart_js__WEBPACK_IMPORTED_MODULE_4__.registerables));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   //layout
@@ -22678,27 +22678,26 @@ chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register.apply(chart_js__WEBPACK_IMP
   components: {
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
     BarChart: vue_chart_3__WEBPACK_IMPORTED_MODULE_3__.BarChart,
-    // <-- register component "BarChart"
     DoughnutChart: vue_chart_3__WEBPACK_IMPORTED_MODULE_3__.DoughnutChart
   },
   props: {
-    // total penjualan hari ini
+    //total penjualan hari ini
     count_sales_today: Number,
-    // jumlah (Rp.) penjualan hari ini
+    //jumlah (Rp.) penjualan hari ini
     sum_sales_today: Number,
-    // jumlah profit/laba hari ini
+    //jumlah profit/laba hari ini
     sum_profits_today: Number,
-    // chart sales
+    //chart sales
     sales_date: Array,
     grand_total: Array,
-    // product terlaris
+    //produk terlaris
     product: Array,
     total: Array,
-    // product limit stock
+    //produk limit stock
     products_limit_stock: Array
   },
   setup: function setup(props) {
-    // method random color
+    //method random color
     function randomBackgroundColor(length) {
       var data = [];
       for (var i = 0; i < length; i++) {
@@ -22707,7 +22706,7 @@ chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register.apply(chart_js__WEBPACK_IMP
       return data;
     }
 
-    // method generate random color
+    //method generate random color
     function getRandomColor() {
       var letters = '0123456789ABCDEF'.split('');
       var color = '#';
@@ -22717,7 +22716,7 @@ chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register.apply(chart_js__WEBPACK_IMP
       return color;
     }
 
-    // option chart
+    //option chart
     var options = (0,vue__WEBPACK_IMPORTED_MODULE_2__.ref)({
       responsive: true,
       plugins: {
@@ -22731,16 +22730,16 @@ chart_js__WEBPACK_IMPORTED_MODULE_4__.Chart.register.apply(chart_js__WEBPACK_IMP
       beginZero: true
     });
 
-    // chart sell week
+    //chart sell week
     var chartSellWeek = {
-      label: props.sales_date,
+      labels: props.sales_date,
       datasets: [{
         data: props.grand_total,
         backgroundColor: randomBackgroundColor(props.sales_date.length)
       }]
     };
 
-    // chart produk terlaris
+    //chart produk terlaris
     var chartBestProduct = {
       labels: props.product,
       datasets: [{
