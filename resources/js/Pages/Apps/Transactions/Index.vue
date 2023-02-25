@@ -12,18 +12,18 @@
 
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fa fa-barcode"></i></span>
-                                    <input type="text" class="form-control" placeholder="Scan or Input Barcode">
+                                    <input type="text" class="form-control" v-model="barcode" @keyup="searchProduct" placeholder="Scan or Input Barcode">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Product Name</label>
-                                    <input type="text" class="form-control" placeholder="Product Name" readonly>
+                                    <input type="text" class="form-control" :value="product.title" placeholder="Product Name" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label fw-bold">Qty</label>
-                                    <input type="number" class="form-control text-center" placeholder="Qty" min="1">
+                                    <input type="number" v-model="qty" class="form-control text-center" placeholder="Qty" min="1">
                                 </div>
                                 <div class="text-end">
-                                    <button class="btn btn-warning btn-md border-0 shadow text-uppercase mt-3 me-2">CLEAR</button>
+                                    <button @click.prevent="clearSearch" class="btn btn-warning btn-md border-0 shadow text-uppercase mt-3 me-2" :disabled="!product.id">CLEAR</button>
                                     <button class="btn btn-success btn-md border-0 shadow text-uppercase mt-3">ADD ITEM</button>
                                 </div>
 
@@ -50,11 +50,11 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label class="fw-bold">Cashier</label>
-
+                                        <input class="form-control" type="text" :value="auth.user.name" readonly>
                                     </div>
                                     <div class="col-md-6 float-end">
                                         <label class="fw-bold">Customer</label>
-
+                                        <VueMultiselect v-model="customer_id" label="name" track-by="name" :options="customers"></VueMultiselect>
                                     </div>
                                 </div>
                                 <hr>
@@ -105,14 +105,81 @@
     //import Heade from Inertia
     import { Head } from '@inertiajs/inertia-vue3';
 
+    //import VueMultiselect
+    import VueMultiselect from 'vue-multiselect';
+    import 'vue-multiselect/dist/vue-multiselect.css';
+
+    //import ref form vue
+    import { ref } from 'vue';
+
+    //import axios
+    import axios from 'axios';
+
     export default {
         //layout
         layout: LayoutApp,
 
         //register components
         components: {
-            Head
+            Head,
+            VueMultiselect
         },
+
+        //props
+        props: {
+            auth: Object,
+            customers: Array
+        },
+
+        //composition API
+        setup(props) {
+
+            //define state
+            const barcode = ref('');
+            const product = ref({});
+            const qty = ref(1);
+
+            //metho "searchProduct"
+            const searchProduct = () => {
+
+                //fetch with axios
+                axios.post('/apps/transactions/searchProduct', {
+
+                    //send data "barcode"
+                    barcode: barcode.value
+
+                }).then(response => {
+                    if(response.data.success) {
+
+                        //assign response to state "product"
+                        product.value = response.data.data;
+                    } else {
+
+                        //set state "product" to empty object
+                        product.value = {};
+                    }
+                });
+            }
+
+            //method "clearSearch"
+            const clearSearch = () => {
+
+                //set state "product" to empty object
+                product.value = {};
+
+                //set state "barcode" to empty string
+                barcode.value = '';
+            }
+
+            return {
+                barcode,
+                product,
+                searchProduct,
+                clearSearch,
+                qty
+            }
+
+        }
     }
 </script>
 
