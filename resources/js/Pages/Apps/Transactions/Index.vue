@@ -48,6 +48,10 @@
                                     </div>
                                     <div class="col-md-8 col-8 text-end">
                                         <h4 class="fw-bold">Rp. {{ formatPrice(grandTotal) }}</h4>
+                                        <div v-if="change > 0">
+                                            <hr>
+                                            <h5 class="text-success">Change : <strong>Rp. {{ formatPrice(change) }}</strong></h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -96,16 +100,16 @@
                                 <div class="d-flex align-items-end flex-column bd-highlight mb-3">
                                     <div class="mt-auto bd-highlight">
                                         <label>Discount (Rp.)</label>
-                                        <input type="number" class="form-control" placeholder="Discount (Rp.)">
+                                        <input type="number" v-model="discount" @keyup="setDiscount" class="form-control" placeholder="Discount (Rp.)">
                                     </div>
                                     <div class="bd-highlight mt-4">
                                         <label>Pay (Rp.)</label>
-                                        <input type="number" class="form-control" placeholder="Pay (Rp.)">
+                                        <input type="number" v-model="cash" @keyup="setChange" class="form-control" placeholder="Pay (Rp.)">
                                     </div>
                                 </div>
                                 <div class="text-end mt-4">
                                     <button class="btn btn-warning btn-md border-0 shadow text-uppercase me-2">Cancel</button>
-                                    <button class="btn btn-purple btn-md border-0 shadow text-uppercase">Pay Order & Print</button>
+                                    <button class="btn btn-purple btn-md border-0 shadow text-uppercase" :disabled="cash < grandTotal || grandTotal <= 0 ">Pay Order & Print</button>
                                 </div>
                             </div>
                         </div>
@@ -238,8 +242,39 @@
 
                         // update state "grandTotal"
                         grandTotal.value = props.carts_total;
+
+                        // set cash to "0"
+                        cash.value = 0
+
+                        // set change to "0"
+                        change.value = 0
                     },
                 })
+            }
+
+            //define state "cash", "change" dan "discount"
+            const cash      = ref(0);
+            const change    = ref(0);
+            const discount  = ref(0);
+
+            //method "setDiscount"
+            const setDiscount = () => {
+
+                //set grandTotal
+                grandTotal.value = props.carts_total - discount.value;
+
+                //set cash to "0"
+                cash.value = 0;
+
+                //set change to "0"
+                change.value = 0;
+            }
+
+            //method "setChange"
+            const setChange = () => {
+
+                //set change
+                change.value = cash.value - grandTotal.value;
             }
 
             return {
@@ -250,7 +285,12 @@
                 qty,
                 grandTotal,
                 addToCart,
-                destroyCart
+                destroyCart,
+                cash,
+                change,
+                discount,
+                setDiscount,
+                setChange
             }
 
         }
