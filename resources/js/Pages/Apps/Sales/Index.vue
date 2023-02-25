@@ -45,7 +45,7 @@
                                     <hr>
                                     <div class="export text-end mb-3">
                                         <a :href="`/apps/sales/export?start_date=${start_date}&end_date=${end_date}`" target="_blank" class="btn btn-success btn-md border-0 shadow me-3"><i class="fa fa-file-excel"></i> EXCEL</a>
-                                        <a href="#" target="_blank" class="btn btn-secondary btn-md border-0 shadow"><i class="fa fa-file-pdf"></i> PDF</a>
+                                        <a :href="`/apps/sales/pdf?start_date=${start_date}&end_date=${end_date}`" target="_blank" class="btn btn-secondary btn-md border-0 shadow"><i class="fa fa-file-pdf"></i> PDF</a>
                                     </div>
                                     <table class="table table-bordered">
                                         <thead>
