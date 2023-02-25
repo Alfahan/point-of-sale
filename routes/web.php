@@ -85,6 +85,12 @@ Route::prefix('apps')->group(function() {
         //route sales print pdf
         Route::get('/sales/pdf', [\App\Http\Controllers\Apps\SaleController::class, 'pdf'])->name('apps.sales.pdf');
 
+        //route profits index
+        Route::get('/profits', [\App\Http\Controllers\Apps\ProfitController::class, 'index'])->middleware('permission:profits.index')->name('apps.profits.index');
+
+        //route profits filter
+        Route::get('/profits/filter', [\App\Http\Controllers\Apps\ProfitController::class, 'filter'])->name('apps.profits.filter');
+
     });
 });
 
