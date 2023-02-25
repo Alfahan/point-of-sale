@@ -79,7 +79,7 @@
                                     <tbody>
                                         <tr v-for="cart in carts" :key="cart.id">
                                             <td class="text-center">
-                                                <button class="btn btn-danger btn-sm rounded-pill"><i class="fa fa-trash"></i></button>
+                                                <button @click.prevent="destroyCart(cart.id)" class="btn btn-danger btn-sm rounded-pill"><i class="fa fa-trash"></i></button>
                                             </td>
                                             <td>{{ cart.product.title }}</td>
                                             <td>Rp. {{ formatPrice(cart.product.sell_price) }}</td>
@@ -228,6 +228,20 @@
 
             }
 
+
+            //method "destroyCart"
+            const destroyCart = (cart_id) => {
+                Inertia.post('/apps/transactions/destroyCart', {
+                    cart_id: cart_id
+                }, {
+                    onSuccess: () => {
+
+                        // update state "grandTotal"
+                        grandTotal.value = props.carts_total;
+                    },
+                })
+            }
+
             return {
                 barcode,
                 product,
@@ -235,7 +249,8 @@
                 clearSearch,
                 qty,
                 grandTotal,
-                addToCart
+                addToCart,
+                destroyCart
             }
 
         }
