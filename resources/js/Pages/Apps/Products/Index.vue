@@ -12,10 +12,10 @@
                                 <span class="font-weight-bold"><i class="fa fa-shopping-bag"></i> PRODUCTS</span>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form @submit.prevent="handleSearch">
                                     <div class="input-group mb-3">
                                         <Link href="/apps/products/create" v-if="hasAnyPermission(['products.create'])" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
-                                        <input type="text" class="form-control" placeholder="search by product title...">
+                                        <input type="text" v-model="search" class="form-control" placeholder="search by product title...">
 
                                         <button class="btn btn-primary input-group-text" type="submit"> <i class="fa fa-search me-2"></i> SEARCH</button>
 
@@ -66,6 +66,12 @@
     //import Heade and Link from Inertia
     import { Head, Link } from '@inertiajs/inertia-vue3';
 
+    //import ref from vue
+    import { ref } from 'vue';
+
+    //import inertia adapter
+    import { Inertia } from '@inertiajs/inertia';
+
     export default {
         //layout
         layout: LayoutApp,
@@ -80,6 +86,26 @@
         //props
         props: {
             products: Object,
+        },
+
+        //composition API
+        setup() {
+
+            //define state search
+            const search = ref('' || (new URL(document.location)).searchParams.get('q'));
+
+            //define method search
+            const handleSearch = () => {
+            Inertia.get('/apps/products', {
+                    //send params "q" with value from state "search"
+                    q: search.value,
+                });
+            }
+
+            return {
+                search,
+                handleSearch,
+            }
         }
     }
 </script>
