@@ -172,7 +172,7 @@ class TransactionController extends Controller
             $total_sell_price = $cart->product->sell_price * $cart->qty;
 
             //get profits
-            $profits = $total_sell_price - $total_buy_price;
+            $profits = $total_sell_price - $total_buy_price - $request->discount;
 
             //insert provits
             $transaction->profits()->create([
