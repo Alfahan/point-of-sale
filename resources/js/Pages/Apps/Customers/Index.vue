@@ -12,7 +12,7 @@
                                 <span class="font-weight-bold"><i class="fa fa-user-circle"></i> CUSTOMERS</span>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form @submit.prevent="handleSearch">
                                     <div class="input-group mb-3">
                                         <Link href="/apps/customers/create" v-if="hasAnyPermission(['customers.create'])" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
                                         <input type="text" v-model="search" class="form-control" placeholder="search by customer name...">

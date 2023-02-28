@@ -27,7 +27,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="fw-bold">No. Telp</label>
-                                                <input class="form-control" v-model="form.no_telp" :class="{ 'is-invalid': errors.no_telp }" type="number" placeholder="No. Telp">
+                                                <input class="form-control" v-model="form.no_telp" :class="{ 'is-invalid': errors.no_telp }" type="string" placeholder="No. Telp">
                                             </div>
                                             <div v-if="errors.no_telp" class="alert alert-danger">
                                                 {{ errors.no_telp }}
